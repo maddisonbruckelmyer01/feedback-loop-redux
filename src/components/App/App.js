@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Feeling from '../Feeling/Feeling';
 import Understanding from '../Understanding/Understanding';
 import Support from '../Support/Support';
 import Comments from '../Comments/Comments';
 import Review from '../Review/Review';
 import Submit from '../Submit/Submit';
+import {connect} from 'react-redux';
 
 class App extends Component {
 
@@ -19,6 +20,10 @@ class App extends Component {
     axios.get('/feedback')
     .then(response => {
       console.log(response)
+      this.props.dispatch({
+        type: 'GET_FEEDBACK',
+        payload: response.data
+      })
     }).catch(error => {
       console.log(error)
     })
@@ -45,4 +50,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);

@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 class Comments extends Component {
 
+    state = {
+        comments: ''
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            comments: event.target.value
+        })
+    }
+
     handleClick = () => {
+
         this.props.history.push('/review');
     }//end handleClick
 
@@ -11,7 +23,7 @@ class Comments extends Component {
             <div>
                 <h1>Any comments you want to leave?</h1>
                 <p>Comments</p>
-                <input type="text" placeholder="Place comments here"/>
+                <input type="text" placeholder="Place comments here" onChange={this.handleChange}/>
                 <button onClick={this.handleClick}>Next</button>
             </div>
 
