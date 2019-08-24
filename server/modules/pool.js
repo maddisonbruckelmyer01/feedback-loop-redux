@@ -38,4 +38,12 @@ if (process.env.DATABASE_URL) {
     };
 }
 
+// pool.on("connect", () => {
+//     console.log("connected to postgres");
+// });
+
+// pool.on("error", (err) => {
+//     console.log("error connecting to postgres", err);
+// });
+
 module.exports = new pg.Pool(config);

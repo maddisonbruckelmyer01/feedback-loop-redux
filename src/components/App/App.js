@@ -12,11 +12,16 @@ import Submit from '../Submit/Submit';
 class App extends Component {
 
   componentDidMount = () => {
-
+    this.getData();
   }//end componentDidMount
 
   getData = () => {
-    axios.get('')
+    axios.get('/feedback')
+    .then(response => {
+      console.log(response)
+    }).catch(error => {
+      console.log(error)
+    })
   }//end getData
   
   render() {
