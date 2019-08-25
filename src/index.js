@@ -17,7 +17,7 @@ const feedbackReducer = (state = [], action) => {
 
 const inputReducer = (state = [], action) => {
     if (action.type === 'ADD_TO_STATE') {
-        return action.payload
+        return [...state, action.payload]
     }
     return state 
 }

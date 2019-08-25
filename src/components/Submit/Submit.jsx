@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
 
 class Submit extends Component {
 
     handleClick = () => {
+        
         this.props.history.push('/');
     }//end handleClick
 
@@ -17,4 +20,6 @@ class Submit extends Component {
     }
 }
 
-export default Submit;
+
+
+export default connect()(Submit);

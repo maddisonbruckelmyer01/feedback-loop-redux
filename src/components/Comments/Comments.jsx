@@ -14,7 +14,11 @@ class Comments extends Component {
     }
 
     handleClick = () => {
-
+        let action = {
+            type: 'ADD_TO_STATE',
+            payload: this.state
+        }
+        this.props.dispatch(action)
         this.props.history.push('/review');
     }//end handleClick
 
@@ -31,4 +35,4 @@ class Comments extends Component {
     }
 }
 
-export default Comments;
+export default connect()(Comments);
