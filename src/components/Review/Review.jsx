@@ -1,39 +1,33 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import Header from '../Header/Header'
 
 class Review extends Component {
     
     handleClick = () => {
-        axios.post('/feedback', this.props.reduxStore.inputReducer)
-            .then(response => {
-                axios.get('/feedback')
-                    .then(response => {
-                        console.log(response)
-                        this.props.dispatch({
-                            type: 'GET_FEEDBACK',
-                            payload: response.data
-                        })
-                    }).catch(error => {
-                        console.log(error)
-                    })
-            }).catch(error => {
-                console.log('error on post ', error);
+        axios.post('/feedback', this.props.input)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                alert('error submitting responses');
+                console.log(error);
             })
 
         this.props.history.push('/submit')
     }//end handleClick
 
     render() {
-        let userFeedback = this.props.reduxStore.feedbackReducer.map((user, index) => {
-            return (<li key={index}>Feelings: {user.feeling} Understanding: {user.understanding}
-             Support: {user.support} Comments: {user.comments}</li>)
-        })
         return (
             <div>
+                <Header />
                 <h1>Review your feedback!</h1>
                 <ul>
-                   {userFeedback}
+                    <li>Feelings: {this.props.input.feeling}</li>
+                    <li>Understanding: {this.props.input.understanding}</li>
+                    <li>Support: {this.props.input.support}</li>
+                    <li>Comments: {this.props.input.comments}</li>
                 </ul>
                 <button onClick={this.handleClick}>Submit</button>
             </div>
@@ -42,10 +36,10 @@ class Review extends Component {
     }
 }
 
-const mapStateToProps = (reduxStore) => {
+const toProps = (reduxStore) => {
     return {
-        reduxStore
+        input: reduxStore.inputReducer
     }
 }
 
-export default connect(mapStateToProps)(Review);
+export default connect(toProps)(Review);

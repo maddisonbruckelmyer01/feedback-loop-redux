@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import Header from '../Header/Header';
 
 class Understanding extends Component {
 
     state = {
-        user: {
             understanding: 0
-        }
     }
 
     handleChange = (event) => {
         this.setState({
-            user: {
-                understanding: event.target.value
-            }
+                understanding: Number(event.target.value)
+            
         })
     }//end handleChange
 
-    handleClick = () => {
+    handleClick = (event) => {
+        event.preventDefault();
         let action = {
-            type: 'ADD_TO_STATE',
-            payload: this.state.user
+            type: 'SET_UNDERSTANDING',
+            payload: this.state.understanding
         }
         this.props.dispatch(action)
 
@@ -30,10 +29,13 @@ class Understanding extends Component {
     render() {
         return(
             <div>
+                <Header />
                 <h1>How well are you understanding the content?</h1>
                 <p>Understanding?</p>
-                <input type="number" placeholder="scale of 1-10" onChange={this.handleChange} />
-                <button onClick={this.handleClick}>Next</button>
+                <form onSubmit={this.handleClick}>
+                    <input type="number" placeholder="scale of 1-10" required onChange={this.handleChange} />
+                    <input type="submit" value="Next"/>
+                </form>
             </div>
         )
     }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import Header from '../Header/Header'
 
 class Comments extends Component {
 
     state = {
-        comments: ''
+        comments: '',
     }
 
     handleChange = (event) => {
@@ -15,8 +16,8 @@ class Comments extends Component {
 
     handleClick = () => {
         let action = {
-            type: 'ADD_TO_STATE',
-            payload: this.state
+            type: 'SET_COMMENTS',
+            payload: this.state.comments
         }
         this.props.dispatch(action)
         this.props.history.push('/review');
@@ -25,6 +26,7 @@ class Comments extends Component {
     render() {
         return(
             <div>
+                <Header />
                 <h1>Any comments you want to leave?</h1>
                 <p>Comments</p>
                 <input type="text" placeholder="Place comments here" onChange={this.handleChange}/>

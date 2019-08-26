@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import Header from '../Header/Header';
 
 class Support extends Component {
 
     state = {
-        user: {
             support: 0
-        }
     }
 
     handleChange = (event) => {
        this.setState({
-           user: {
-            support: event.target.value
-           } 
+          support: Number(event.target.value)
        })
     }//end handleChange
 
 
-    handleClick = () => {
+    handleClick = (event) => {
+        event.preventDefault();
         let action = {
-            type: 'ADD_TO_STATE',
-            payload: this.state.user
+            type: 'SET_SUPPORT',
+            payload: this.state.support
         }
         this.props.dispatch(action)
         this.props.history.push('/comments')
@@ -30,10 +28,13 @@ class Support extends Component {
     render() {
         return(
             <div>
+                <Header />
                 <h1>How well are you being supported?</h1>
                 <p>Support?</p>
-                <input type="number" placeholder="scale of 1-10" onChange={this.handleChange} />
-                <button onClick={this.handleClick}>Next</button>
+                <form onSubmit={this.handleClick}>
+                    <input type="number" placeholder="scale of 1-10" onChange={this.handleChange} />
+                    <input type="submit" value="Next"/>
+                </form>
             </div>
         )
     }
